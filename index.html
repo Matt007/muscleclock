@@ -1,33 +1,547 @@
-<!DOCTYPE html>
-<html>
+<!doctype html>
+<html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <title>MuscleClock Support</title>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Muscle Clock — Support</title>
+  <meta name="description" content="Muscle Clock — muscle recovery and readiness tracking. Available on iOS now." />
+  <meta name="theme-color" content="#0b1020" />
+
   <style>
-    body {
-      font-family: -apple-system, BlinkMacSystemFont, sans-serif;
-      max-width: 700px;
-      margin: 60px auto;
-      line-height: 1.6;
-      padding: 0 20px;
+    :root{
+      --bg0:#070a14;
+      --bg1:#0b1020;
+      --ink:#eaf0ff;
+      --muted:rgba(234,240,255,.72);
+      --glass:rgba(255,255,255,.08);
+      --glass2:rgba(255,255,255,.12);
+      --line:rgba(255,255,255,.14);
+      --shadow: 0 24px 80px rgba(0,0,0,.55);
+      --shadow2: 0 10px 30px rgba(0,0,0,.45);
+      --radius: 22px;
+      --radius2: 16px;
+
+      --a:#7c3aed;   /* purple */
+      --b:#06b6d4;   /* cyan */
+      --c:#22c55e;   /* green */
+      --d:#f59e0b;   /* amber */
+      --e:#ef4444;   /* red */
     }
-    h1 { font-size: 28px; }
-    h2 { margin-top: 40px; }
+
+    *{ box-sizing:border-box; }
+    html,body{ height:100%; }
+    body{
+      margin:0;
+      color:var(--ink);
+      font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, "Apple Color Emoji","Segoe UI Emoji";
+      background:
+        radial-gradient(1200px 700px at 20% 15%, rgba(124,58,237,.22), transparent 60%),
+        radial-gradient(900px 600px at 78% 28%, rgba(6,182,212,.16), transparent 55%),
+        radial-gradient(800px 520px at 55% 80%, rgba(34,197,94,.14), transparent 58%),
+        linear-gradient(180deg, var(--bg0), var(--bg1));
+      overflow-x:hidden;
+    }
+
+    /* Starfield */
+    .stars, .stars::before, .stars::after{
+      position:fixed; inset:0;
+      background-repeat:repeat;
+      pointer-events:none;
+      content:"";
+      display:block;
+      opacity:.55;
+      mix-blend-mode:screen;
+      filter: drop-shadow(0 0 8px rgba(255,255,255,.12));
+      animation: drift 120s linear infinite;
+    }
+    .stars{
+      background-image:
+        radial-gradient(1px 1px at 12px 18px, rgba(255,255,255,.55) 50%, transparent 52%),
+        radial-gradient(1px 1px at 88px 42px, rgba(255,255,255,.42) 50%, transparent 52%),
+        radial-gradient(1px 1px at 160px 96px, rgba(255,255,255,.38) 50%, transparent 52%),
+        radial-gradient(1px 1px at 220px 140px, rgba(255,255,255,.35) 50%, transparent 52%);
+      background-size: 280px 220px;
+    }
+    .stars::before{
+      opacity:.38;
+      background-image:
+        radial-gradient(1px 1px at 40px 60px, rgba(255,255,255,.42) 50%, transparent 52%),
+        radial-gradient(1px 1px at 120px 10px, rgba(255,255,255,.30) 50%, transparent 52%),
+        radial-gradient(1px 1px at 200px 90px, rgba(255,255,255,.34) 50%, transparent 52%),
+        radial-gradient(1px 1px at 260px 160px, rgba(255,255,255,.24) 50%, transparent 52%);
+      background-size: 320px 260px;
+      animation-duration: 160s;
+    }
+    .stars::after{
+      opacity:.22;
+      background-image:
+        radial-gradient(1px 1px at 24px 120px, rgba(255,255,255,.28) 50%, transparent 52%),
+        radial-gradient(1px 1px at 96px 180px, rgba(255,255,255,.22) 50%, transparent 52%),
+        radial-gradient(1px 1px at 168px 40px, rgba(255,255,255,.20) 50%, transparent 52%),
+        radial-gradient(1px 1px at 240px 92px, rgba(255,255,255,.18) 50%, transparent 52%);
+      background-size: 360px 300px;
+      animation-duration: 220s;
+    }
+    @keyframes drift{
+      from{ transform: translate3d(0,0,0); }
+      to  { transform: translate3d(-600px, 260px, 0); }
+    }
+
+    /* Aurora ribbon */
+    .aurora{
+      position:fixed; inset:-20% -20%;
+      pointer-events:none;
+      background:
+        radial-gradient(closest-side at 30% 40%, rgba(124,58,237,.35), transparent 62%),
+        radial-gradient(closest-side at 65% 35%, rgba(6,182,212,.28), transparent 60%),
+        radial-gradient(closest-side at 55% 70%, rgba(34,197,94,.24), transparent 65%),
+        radial-gradient(closest-side at 80% 75%, rgba(245,158,11,.16), transparent 68%);
+      filter: blur(42px) saturate(1.2);
+      opacity:.75;
+      mix-blend-mode: screen;
+      animation: aurora 18s ease-in-out infinite alternate;
+    }
+    @keyframes aurora{
+      0% { transform: translate3d(-2%, -1%, 0) rotate(-2deg) scale(1.04); }
+      100%{ transform: translate3d(3%, 2%, 0) rotate(2deg) scale(1.08); }
+    }
+
+    .wrap{
+      position:relative;
+      min-height:100%;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      padding: 56px 20px;
+    }
+
+    .card{
+      width:min(980px, 100%);
+      border-radius: var(--radius);
+      background: linear-gradient(180deg, rgba(255,255,255,.10), rgba(255,255,255,.06));
+      border:1px solid var(--line);
+      box-shadow: var(--shadow);
+      backdrop-filter: blur(14px);
+      -webkit-backdrop-filter: blur(14px);
+      overflow:hidden;
+      position:relative;
+      isolation:isolate;
+    }
+
+    .card::before{
+      content:"";
+      position:absolute; inset:-2px;
+      background:
+        radial-gradient(800px 400px at 15% 0%, rgba(124,58,237,.30), transparent 55%),
+        radial-gradient(700px 420px at 88% 12%, rgba(6,182,212,.22), transparent 55%),
+        radial-gradient(800px 500px at 55% 110%, rgba(34,197,94,.18), transparent 60%);
+      opacity:.9;
+      z-index:-1;
+    }
+
+    .grid{
+      display:grid;
+      grid-template-columns: 1.2fr .8fr;
+      gap: 0;
+    }
+    @media (max-width: 860px){
+      .grid{ grid-template-columns: 1fr; }
+    }
+
+    .left{
+      padding: 44px 44px 38px;
+    }
+    @media (max-width: 860px){
+      .left{ padding: 36px 26px 26px; }
+    }
+
+    .badge{
+      display:inline-flex;
+      align-items:center;
+      gap:10px;
+      padding:10px 14px;
+      border-radius: 999px;
+      border:1px solid rgba(255,255,255,.18);
+      background: rgba(0,0,0,.18);
+      box-shadow: var(--shadow2);
+      color: rgba(234,240,255,.86);
+      font-size: 13px;
+      letter-spacing: .02em;
+    }
+    .dot{
+      width:10px; height:10px; border-radius:999px;
+      background: radial-gradient(circle at 35% 35%, #fff, rgba(255,255,255,.0) 55%),
+                  linear-gradient(135deg, var(--c), var(--b), var(--a));
+      box-shadow: 0 0 14px rgba(34,197,94,.35), 0 0 22px rgba(6,182,212,.22);
+      animation: pulse 2.2s ease-in-out infinite;
+    }
+    @keyframes pulse{
+      0%,100%{ transform: scale(1); opacity:.95; }
+      50%{ transform: scale(1.18); opacity:1; }
+    }
+
+    h1{
+      margin: 18px 0 10px;
+      font-size: clamp(34px, 5vw, 56px);
+      line-height: 1.02;
+      letter-spacing: -0.02em;
+    }
+
+    .subtitle{
+      margin: 0 0 22px;
+      color: var(--muted);
+      font-size: 16px;
+      line-height: 1.6;
+      max-width: 58ch;
+    }
+
+    .feature-row{
+      display:grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 14px;
+      margin-top: 26px;
+    }
+    @media (max-width: 560px){
+      .feature-row{ grid-template-columns: 1fr; }
+    }
+
+    .pill{
+      border-radius: var(--radius2);
+      border:1px solid rgba(255,255,255,.14);
+      background: rgba(0,0,0,.16);
+      padding: 14px 14px;
+      display:flex;
+      gap: 12px;
+      align-items:flex-start;
+    }
+    .icon{
+      width: 36px; height: 36px;
+      border-radius: 12px;
+      background:
+        radial-gradient(circle at 25% 20%, rgba(255,255,255,.45), rgba(255,255,255,0) 45%),
+        linear-gradient(135deg, rgba(124,58,237,.9), rgba(6,182,212,.85));
+      box-shadow: 0 0 26px rgba(124,58,237,.18);
+      flex: 0 0 auto;
+    }
+    .pill h3{
+      margin: 0;
+      font-size: 14px;
+      letter-spacing: .01em;
+    }
+    .pill p{
+      margin: 4px 0 0;
+      color: rgba(234,240,255,.72);
+      font-size: 13px;
+      line-height: 1.45;
+    }
+
+    .ctaRow{
+      margin-top: 26px;
+      display:flex;
+      flex-wrap:wrap;
+      gap: 12px;
+      align-items:center;
+    }
+
+    .btn{
+      display:inline-flex;
+      align-items:center;
+      justify-content:center;
+      gap:10px;
+      padding: 12px 16px;
+      border-radius: 14px;
+      border: 1px solid rgba(255,255,255,.16);
+      background: rgba(0,0,0,.20);
+      color: rgba(234,240,255,.92);
+      text-decoration:none;
+      font-weight: 600;
+      font-size: 14px;
+      letter-spacing: .01em;
+      transition: transform .12s ease, background .12s ease, border-color .12s ease;
+      box-shadow: var(--shadow2);
+    }
+    .btn:hover{
+      transform: translateY(-1px);
+      border-color: rgba(255,255,255,.22);
+      background: rgba(0,0,0,.28);
+    }
+    .btnPrimary{
+      border: 1px solid rgba(255,255,255,.18);
+      background: linear-gradient(135deg, rgba(124,58,237,.55), rgba(6,182,212,.40));
+      box-shadow: 0 14px 40px rgba(124,58,237,.18), 0 10px 30px rgba(6,182,212,.10);
+    }
+    .btnPrimary:hover{
+      background: linear-gradient(135deg, rgba(124,58,237,.65), rgba(6,182,212,.48));
+    }
+
+    .small{
+      color: rgba(234,240,255,.62);
+      font-size: 12px;
+      line-height: 1.5;
+    }
+
+    /* Right panel */
+    .right{
+      padding: 0;
+      border-left: 1px solid rgba(255,255,255,.10);
+      position:relative;
+      display:flex;
+      align-items:stretch;
+      justify-content:stretch;
+    }
+    @media (max-width: 860px){
+      .right{
+        border-left:none;
+        border-top: 1px solid rgba(255,255,255,.10);
+      }
+    }
+
+    .panel{
+      padding: 34px 28px 30px;
+      width:100%;
+      display:flex;
+      flex-direction:column;
+      gap: 16px;
+      position:relative;
+    }
+
+    .panelTitle{
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap: 12px;
+    }
+    .panelTitle h2{
+      margin:0;
+      font-size: 14px;
+      letter-spacing:.12em;
+      text-transform: uppercase;
+      color: rgba(234,240,255,.76);
+    }
+
+    .sparkline{
+      height: 180px;
+      border-radius: 18px;
+      border: 1px solid rgba(255,255,255,.14);
+      background:
+        radial-gradient(120px 120px at 20% 30%, rgba(34,197,94,.22), transparent 60%),
+        radial-gradient(140px 140px at 60% 35%, rgba(6,182,212,.18), transparent 60%),
+        radial-gradient(160px 160px at 80% 70%, rgba(239,68,68,.16), transparent 65%),
+        rgba(0,0,0,.18);
+      overflow:hidden;
+      position:relative;
+      box-shadow: var(--shadow2);
+    }
+
+    /* Wavy gradient line */
+    .sparkline svg{
+      position:absolute; inset:0;
+      width:100%; height:100%;
+    }
+    .glow{
+      filter: drop-shadow(0 0 14px rgba(6,182,212,.18))
+              drop-shadow(0 0 22px rgba(124,58,237,.14));
+    }
+
+    .statGrid{
+      display:grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 12px;
+    }
+    .stat{
+      border-radius: 18px;
+      border: 1px solid rgba(255,255,255,.14);
+      background: rgba(0,0,0,.16);
+      padding: 14px 14px;
+      box-shadow: var(--shadow2);
+    }
+    .stat .k{
+      font-size: 12px;
+      color: rgba(234,240,255,.62);
+      letter-spacing: .02em;
+    }
+    .stat .v{
+      margin-top: 6px;
+      font-size: 16px;
+      font-weight: 700;
+      letter-spacing: -0.01em;
+    }
+
+    .footer{
+      padding: 18px 24px;
+      border-top: 1px solid rgba(255,255,255,.10);
+      display:flex;
+      gap: 12px;
+      align-items:center;
+      justify-content:space-between;
+      flex-wrap:wrap;
+      color: rgba(234,240,255,.62);
+      font-size: 12px;
+    }
+    .footer a{
+      color: rgba(234,240,255,.82);
+      text-decoration:none;
+      border-bottom: 1px solid rgba(234,240,255,.22);
+    }
+    .footer a:hover{
+      border-bottom-color: rgba(234,240,255,.42);
+    }
+
+    /* Reduced motion */
+    @media (prefers-reduced-motion: reduce){
+      .stars, .stars::before, .stars::after, .aurora, .dot{ animation:none !important; }
+      .btn{ transition:none !important; }
+    }
   </style>
 </head>
+
 <body>
+  <div class="stars"></div>
+  <div class="aurora"></div>
 
-<h1>MuscleClock</h1>
-<p>Muscle recovery and readiness tracking app.</p>
+  <main class="wrap">
+    <section class="card" aria-label="Muscle Clock support page">
+      <div class="grid">
+        <div class="left">
+          <div class="badge" aria-label="Status badge">
+            <span class="dot" aria-hidden="true"></span>
+            <span>Available on iOS now</span>
+          </div>
 
-<h2>Support</h2>
-<p>If you need help, contact:</p>
-<p><strong>your@email.com</strong></p>
+          <h1>Muscle Clock</h1>
+          <p class="subtitle">
+            A calm, precise way to track muscle recovery and readiness over time.
+            Log a quick set in seconds — no “workout” required.
+          </p>
 
-<h2>Privacy Policy</h2>
-<p>MuscleClock does not collect, store, or transmit personal data.</p>
-<p>All workout and muscle tracking data is stored locally on your device.</p>
-<p>No analytics, tracking, or third-party data sharing is used.</p>
+          <div class="ctaRow">
+            <!-- Replace # with your App Store link when you have it -->
+            <a class="btn btnPrimary" href="#" aria-label="Open on the App Store">
+              <span aria-hidden="true"></span>
+              <span>View on the App Store</span>
+            </a>
 
+            <a class="btn" href="mailto:muscleclockapp@gmail.com?subject=Muscle%20Clock%20Support" aria-label="Email support">
+              <span aria-hidden="true">✉︎</span>
+              <span>Support Email</span>
+            </a>
+
+            <span class="small">Support: <strong>muscleclockapp@gmail.com</strong></span>
+          </div>
+
+          <div class="feature-row" aria-label="Highlights">
+            <div class="pill">
+              <div class="icon" aria-hidden="true"></div>
+              <div>
+                <h3>Muscle-first logging</h3>
+                <p>Tap a muscle or group and log instantly. Keep it lightweight or detailed.</p>
+              </div>
+            </div>
+
+            <div class="pill">
+              <div class="icon" aria-hidden="true"></div>
+              <div>
+                <h3>Readable readiness</h3>
+                <p>See what’s fresh, recovering, ready, or overdue with simple visual status.</p>
+              </div>
+            </div>
+
+            <div class="pill">
+              <div class="icon" aria-hidden="true"></div>
+              <div>
+                <h3>Your rules</h3>
+                <p>Configure recovery timing per muscle — triceps, biceps, legs… all different.</p>
+              </div>
+            </div>
+
+            <div class="pill">
+              <div class="icon" aria-hidden="true"></div>
+              <div>
+                <h3>Long-term friendly</h3>
+                <p>Designed for years of data. History stays reliable, state stays fast.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <aside class="right" aria-label="Visual panel">
+          <div class="panel">
+            <div class="panelTitle">
+              <h2>Readiness Pulse</h2>
+              <span class="small">A gentle hint of what the app tracks</span>
+            </div>
+
+            <div class="sparkline" aria-hidden="true">
+              <svg viewBox="0 0 600 260" preserveAspectRatio="none">
+                <defs>
+                  <linearGradient id="lineGrad" x1="0" y1="0" x2="1" y2="0">
+                    <stop offset="0" stop-color="rgba(34,197,94,0.95)"/>
+                    <stop offset="0.45" stop-color="rgba(6,182,212,0.92)"/>
+                    <stop offset="0.75" stop-color="rgba(245,158,11,0.92)"/>
+                    <stop offset="1" stop-color="rgba(239,68,68,0.90)"/>
+                  </linearGradient>
+                  <linearGradient id="fillGrad" x1="0" y1="0" x2="0" y2="1">
+                    <stop offset="0" stop-color="rgba(124,58,237,0.22)"/>
+                    <stop offset="1" stop-color="rgba(0,0,0,0)"/>
+                  </linearGradient>
+                </defs>
+
+                <!-- Soft fill under curve -->
+                <path d="M0,170 C60,120 110,128 160,112 C210,95 250,135 300,120 C350,104 390,70 440,90 C490,108 530,155 600,142 L600,260 L0,260 Z"
+                      fill="url(#fillGrad)" opacity="0.9"></path>
+
+                <!-- Glow stroke -->
+                <path class="glow"
+                      d="M0,170 C60,120 110,128 160,112 C210,95 250,135 300,120 C350,104 390,70 440,90 C490,108 530,155 600,142"
+                      fill="none" stroke="url(#lineGrad)" stroke-width="6" stroke-linecap="round"></path>
+
+                <!-- Subtle grid lines -->
+                <g opacity="0.25" stroke="rgba(255,255,255,.22)">
+                  <line x1="0" y1="60" x2="600" y2="60" />
+                  <line x1="0" y1="120" x2="600" y2="120" />
+                  <line x1="0" y1="180" x2="600" y2="180" />
+                </g>
+              </svg>
+            </div>
+
+            <div class="statGrid" aria-label="Key points">
+              <div class="stat">
+                <div class="k">Log style</div>
+                <div class="v">Quick or detailed</div>
+              </div>
+              <div class="stat">
+                <div class="k">Recovery</div>
+                <div class="v">Per muscle</div>
+              </div>
+              <div class="stat">
+                <div class="k">History</div>
+                <div class="v">Event-based</div>
+              </div>
+              <div class="stat">
+                <div class="k">Support</div>
+                <div class="v">Email</div>
+              </div>
+            </div>
+
+            <p class="small" style="margin: 2px 2px 0;">
+              Have feedback or found something odd? I’d genuinely like to hear it — send a note and include your iOS version.
+            </p>
+          </div>
+        </aside>
+      </div>
+
+      <footer class="footer">
+        <div>© <span id="y"></span> Muscle Clock</div>
+        <div>
+          <a href="mailto:muscleclockapp@gmail.com?subject=Muscle%20Clock%20Support">muscleclockapp@gmail.com</a>
+        </div>
+      </footer>
+    </section>
+  </main>
+
+  <script>
+    // tiny enhancement: keep copyright year current
+    document.getElementById("y").textContent = new Date().getFullYear();
+  </script>
 </body>
 </html>
