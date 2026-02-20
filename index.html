@@ -4,28 +4,33 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Muscle Clock — Support</title>
-  <meta name="description" content="Muscle Clock — muscle recovery and readiness tracking. Available on iOS now." />
+  <meta name="description" content="Muscle Clock — muscle recovery and readiness tracking. Support, privacy, and contact." />
   <meta name="theme-color" content="#0b1020" />
 
   <style>
     :root{
       --bg0:#070a14;
       --bg1:#0b1020;
+
       --ink:#eaf0ff;
       --muted:rgba(234,240,255,.72);
+
       --glass:rgba(255,255,255,.08);
       --glass2:rgba(255,255,255,.12);
       --line:rgba(255,255,255,.14);
+
       --shadow: 0 24px 80px rgba(0,0,0,.55);
       --shadow2: 0 10px 30px rgba(0,0,0,.45);
+
       --radius: 22px;
       --radius2: 16px;
 
+      /* App-store screenshot vibe: purple → indigo, with faint cyan */
       --a:#7c3aed;   /* purple */
-      --b:#06b6d4;   /* cyan */
-      --c:#22c55e;   /* green */
-      --d:#f59e0b;   /* amber */
-      --e:#ef4444;   /* red */
+      --b:#4f46e5;   /* indigo */
+      --c:#06b6d4;   /* cyan */
+      --d:#22c55e;   /* green */
+      --e:#f59e0b;   /* amber */
     }
 
     *{ box-sizing:border-box; }
@@ -36,8 +41,8 @@
       font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, "Apple Color Emoji","Segoe UI Emoji";
       background:
         radial-gradient(1200px 700px at 20% 15%, rgba(124,58,237,.22), transparent 60%),
-        radial-gradient(900px 600px at 78% 28%, rgba(6,182,212,.16), transparent 55%),
-        radial-gradient(800px 520px at 55% 80%, rgba(34,197,94,.14), transparent 58%),
+        radial-gradient(900px 600px at 78% 28%, rgba(79,70,229,.16), transparent 55%),
+        radial-gradient(800px 520px at 55% 80%, rgba(6,182,212,.12), transparent 58%),
         linear-gradient(180deg, var(--bg0), var(--bg1));
       overflow-x:hidden;
     }
@@ -92,11 +97,11 @@
       position:fixed; inset:-20% -20%;
       pointer-events:none;
       background:
-        radial-gradient(closest-side at 30% 40%, rgba(124,58,237,.35), transparent 62%),
-        radial-gradient(closest-side at 65% 35%, rgba(6,182,212,.28), transparent 60%),
-        radial-gradient(closest-side at 55% 70%, rgba(34,197,94,.24), transparent 65%),
-        radial-gradient(closest-side at 80% 75%, rgba(245,158,11,.16), transparent 68%);
-      filter: blur(42px) saturate(1.2);
+        radial-gradient(closest-side at 30% 40%, rgba(124,58,237,.32), transparent 62%),
+        radial-gradient(closest-side at 65% 35%, rgba(79,70,229,.24), transparent 60%),
+        radial-gradient(closest-side at 55% 70%, rgba(6,182,212,.18), transparent 65%),
+        radial-gradient(closest-side at 80% 75%, rgba(34,197,94,.12), transparent 68%);
+      filter: blur(42px) saturate(1.15);
       opacity:.75;
       mix-blend-mode: screen;
       animation: aurora 18s ease-in-out infinite alternate;
@@ -133,8 +138,8 @@
       position:absolute; inset:-2px;
       background:
         radial-gradient(800px 400px at 15% 0%, rgba(124,58,237,.30), transparent 55%),
-        radial-gradient(700px 420px at 88% 12%, rgba(6,182,212,.22), transparent 55%),
-        radial-gradient(800px 500px at 55% 110%, rgba(34,197,94,.18), transparent 60%);
+        radial-gradient(700px 420px at 88% 12%, rgba(79,70,229,.22), transparent 55%),
+        radial-gradient(800px 500px at 55% 110%, rgba(6,182,212,.14), transparent 60%);
       opacity:.9;
       z-index:-1;
     }
@@ -171,8 +176,8 @@
     .dot{
       width:10px; height:10px; border-radius:999px;
       background: radial-gradient(circle at 35% 35%, #fff, rgba(255,255,255,.0) 55%),
-                  linear-gradient(135deg, var(--c), var(--b), var(--a));
-      box-shadow: 0 0 14px rgba(34,197,94,.35), 0 0 22px rgba(6,182,212,.22);
+                  linear-gradient(135deg, var(--d), var(--c), var(--a));
+      box-shadow: 0 0 14px rgba(34,197,94,.22), 0 0 22px rgba(6,182,212,.18);
       animation: pulse 2.2s ease-in-out infinite;
     }
     @keyframes pulse{
@@ -192,7 +197,7 @@
       color: var(--muted);
       font-size: 16px;
       line-height: 1.6;
-      max-width: 58ch;
+      max-width: 62ch;
     }
 
     .feature-row{
@@ -219,8 +224,8 @@
       border-radius: 12px;
       background:
         radial-gradient(circle at 25% 20%, rgba(255,255,255,.45), rgba(255,255,255,0) 45%),
-        linear-gradient(135deg, rgba(124,58,237,.9), rgba(6,182,212,.85));
-      box-shadow: 0 0 26px rgba(124,58,237,.18);
+        linear-gradient(135deg, rgba(124,58,237,.9), rgba(79,70,229,.85));
+      box-shadow: 0 0 26px rgba(124,58,237,.16);
       flex: 0 0 auto;
     }
     .pill h3{
@@ -267,11 +272,11 @@
     }
     .btnPrimary{
       border: 1px solid rgba(255,255,255,.18);
-      background: linear-gradient(135deg, rgba(124,58,237,.55), rgba(6,182,212,.40));
-      box-shadow: 0 14px 40px rgba(124,58,237,.18), 0 10px 30px rgba(6,182,212,.10);
+      background: linear-gradient(135deg, rgba(124,58,237,.60), rgba(79,70,229,.42));
+      box-shadow: 0 14px 40px rgba(124,58,237,.16), 0 10px 30px rgba(79,70,229,.10);
     }
     .btnPrimary:hover{
-      background: linear-gradient(135deg, rgba(124,58,237,.65), rgba(6,182,212,.48));
+      background: linear-gradient(135deg, rgba(124,58,237,.70), rgba(79,70,229,.50));
     }
 
     .small{
@@ -307,7 +312,7 @@
 
     .panelTitle{
       display:flex;
-      align-items:center;
+      align-items:flex-start;
       justify-content:space-between;
       gap: 12px;
     }
@@ -318,29 +323,59 @@
       text-transform: uppercase;
       color: rgba(234,240,255,.76);
     }
+    .panelTitle .small{
+      margin:0;
+      text-align:right;
+      max-width: 26ch;
+    }
 
-    .sparkline{
-      height: 180px;
+    /*
+      ✅ Screenshot slot:
+      Replace the .preview block with <img> when ready.
+
+      Example:
+      <a class="preview" href="assets/screenshot-1.png" target="_blank" rel="noreferrer">
+        <img src="assets/screenshot-1.png" alt="Muscle Clock screenshot: dashboard readiness" />
+      </a>
+
+      For best results:
+      - Use a single portrait screenshot (iPhone 6.7" / Pro Max size)
+      - Prefer the Dashboard or Body Map shot
+    */
+    .preview{
+      display:block;
+      height: 420px;
       border-radius: 18px;
       border: 1px solid rgba(255,255,255,.14);
       background:
-        radial-gradient(120px 120px at 20% 30%, rgba(34,197,94,.22), transparent 60%),
-        radial-gradient(140px 140px at 60% 35%, rgba(6,182,212,.18), transparent 60%),
-        radial-gradient(160px 160px at 80% 70%, rgba(239,68,68,.16), transparent 65%),
+        radial-gradient(160px 160px at 22% 25%, rgba(124,58,237,.22), transparent 60%),
+        radial-gradient(180px 180px at 68% 35%, rgba(79,70,229,.16), transparent 60%),
+        radial-gradient(220px 220px at 55% 78%, rgba(6,182,212,.12), transparent 65%),
         rgba(0,0,0,.18);
       overflow:hidden;
       position:relative;
       box-shadow: var(--shadow2);
+      text-decoration:none;
     }
-
-    /* Wavy gradient line */
-    .sparkline svg{
-      position:absolute; inset:0;
-      width:100%; height:100%;
+    .preview img{
+      width:100%;
+      height:100%;
+      object-fit:cover;
+      display:block;
     }
-    .glow{
-      filter: drop-shadow(0 0 14px rgba(6,182,212,.18))
-              drop-shadow(0 0 22px rgba(124,58,237,.14));
+    .preview::after{
+      content:"Drop a screenshot here";
+      position:absolute;
+      left: 14px;
+      bottom: 12px;
+      font-size: 12px;
+      color: rgba(234,240,255,.60);
+      border: 1px dashed rgba(255,255,255,.18);
+      background: rgba(0,0,0,.22);
+      padding: 8px 10px;
+      border-radius: 999px;
+      backdrop-filter: blur(10px);
+      -webkit-backdrop-filter: blur(10px);
     }
 
     .statGrid{
@@ -405,13 +440,13 @@
         <div class="left">
           <div class="badge" aria-label="Status badge">
             <span class="dot" aria-hidden="true"></span>
-            <span>Available on iOS now</span>
+            <span>Muscle recovery & readiness tracking</span>
           </div>
 
           <h1>Muscle Clock</h1>
           <p class="subtitle">
-            A calm, precise way to track muscle recovery and readiness over time.
-            Log a quick set in seconds — no “workout” required.
+            A fast, companion-style app that helps you track muscle recovery over time.
+            Log exercises, body parts, or individual muscles — then see what’s ready today and what needs more time.
           </p>
 
           <div class="ctaRow">
@@ -426,6 +461,12 @@
               <span>Support Email</span>
             </a>
 
+            <!-- App Store requires a privacy policy URL for most apps; placeholder for now -->
+            <a class="btn" href="privacy.html" aria-label="Open privacy policy">
+              <span aria-hidden="true">⌁</span>
+              <span>Privacy</span>
+            </a>
+
             <span class="small">Support: <strong>muscleclockapp@gmail.com</strong></span>
           </div>
 
@@ -433,98 +474,84 @@
             <div class="pill">
               <div class="icon" aria-hidden="true"></div>
               <div>
-                <h3>Muscle-first logging</h3>
-                <p>Tap a muscle or group and log instantly. Keep it lightweight or detailed.</p>
+                <h3>Know what’s ready today</h3>
+                <p>See each muscle’s status and when it’s likely ready to train again.</p>
               </div>
             </div>
 
             <div class="pill">
               <div class="icon" aria-hidden="true"></div>
               <div>
-                <h3>Readable readiness</h3>
-                <p>See what’s fresh, recovering, ready, or overdue with simple visual status.</p>
+                <h3>Visual recovery view</h3>
+                <p>Front &amp; back views make it easy to understand recovery at a glance.</p>
               </div>
             </div>
 
             <div class="pill">
               <div class="icon" aria-hidden="true"></div>
               <div>
-                <h3>Your rules</h3>
-                <p>Configure recovery timing per muscle — triceps, biceps, legs… all different.</p>
+                <h3>Time travel</h3>
+                <p>Scrub backward or forward to see recovery in the past or tomorrow.</p>
               </div>
             </div>
 
             <div class="pill">
               <div class="icon" aria-hidden="true"></div>
               <div>
-                <h3>Long-term friendly</h3>
-                <p>Designed for years of data. History stays reliable, state stays fast.</p>
+                <h3>No lock-in</h3>
+                <p>Import/export your data easily (JSON) — keep full ownership.</p>
+              </div>
+            </div>
+
+            <div class="pill">
+              <div class="icon" aria-hidden="true"></div>
+              <div>
+                <h3>Fast, no splash screen</h3>
+                <p>Opens quickly and stays focused — no clutter, no distractions.</p>
+              </div>
+            </div>
+
+            <div class="pill">
+              <div class="icon" aria-hidden="true"></div>
+              <div>
+                <h3>No subscriptions / no IAP</h3>
+                <p>One-time purchase — no recurring charges and no in-app purchases.</p>
               </div>
             </div>
           </div>
         </div>
 
-        <aside class="right" aria-label="Visual panel">
+        <aside class="right" aria-label="Preview panel">
           <div class="panel">
             <div class="panelTitle">
-              <h2>Readiness Pulse</h2>
-              <span class="small">A gentle hint of what the app tracks</span>
+              <h2>Preview</h2>
+              <p class="small">Best spot for a single App Store screenshot (Dashboard or Body view).</p>
             </div>
 
-            <div class="sparkline" aria-hidden="true">
-              <svg viewBox="0 0 600 260" preserveAspectRatio="none">
-                <defs>
-                  <linearGradient id="lineGrad" x1="0" y1="0" x2="1" y2="0">
-                    <stop offset="0" stop-color="rgba(34,197,94,0.95)"/>
-                    <stop offset="0.45" stop-color="rgba(6,182,212,0.92)"/>
-                    <stop offset="0.75" stop-color="rgba(245,158,11,0.92)"/>
-                    <stop offset="1" stop-color="rgba(239,68,68,0.90)"/>
-                  </linearGradient>
-                  <linearGradient id="fillGrad" x1="0" y1="0" x2="0" y2="1">
-                    <stop offset="0" stop-color="rgba(124,58,237,0.22)"/>
-                    <stop offset="1" stop-color="rgba(0,0,0,0)"/>
-                  </linearGradient>
-                </defs>
-
-                <!-- Soft fill under curve -->
-                <path d="M0,170 C60,120 110,128 160,112 C210,95 250,135 300,120 C350,104 390,70 440,90 C490,108 530,155 600,142 L600,260 L0,260 Z"
-                      fill="url(#fillGrad)" opacity="0.9"></path>
-
-                <!-- Glow stroke -->
-                <path class="glow"
-                      d="M0,170 C60,120 110,128 160,112 C210,95 250,135 300,120 C350,104 390,70 440,90 C490,108 530,155 600,142"
-                      fill="none" stroke="url(#lineGrad)" stroke-width="6" stroke-linecap="round"></path>
-
-                <!-- Subtle grid lines -->
-                <g opacity="0.25" stroke="rgba(255,255,255,.22)">
-                  <line x1="0" y1="60" x2="600" y2="60" />
-                  <line x1="0" y1="120" x2="600" y2="120" />
-                  <line x1="0" y1="180" x2="600" y2="180" />
-                </g>
-              </svg>
-            </div>
+            <!-- Screenshot slot (see CSS comment above for how to replace) -->
+            <a class="preview" href="#" aria-label="Screenshot placeholder"></a>
 
             <div class="statGrid" aria-label="Key points">
               <div class="stat">
-                <div class="k">Log style</div>
-                <div class="v">Quick or detailed</div>
+                <div class="k">Companion</div>
+                <div class="v">Not a gym app</div>
               </div>
               <div class="stat">
-                <div class="k">Recovery</div>
-                <div class="v">Per muscle</div>
+                <div class="k">Fast</div>
+                <div class="v">No splash screen</div>
               </div>
               <div class="stat">
-                <div class="k">History</div>
-                <div class="v">Event-based</div>
+                <div class="k">Pricing</div>
+                <div class="v">No subscriptions</div>
               </div>
               <div class="stat">
-                <div class="k">Support</div>
-                <div class="v">Email</div>
+                <div class="k">Data</div>
+                <div class="v">Easy import/export</div>
               </div>
             </div>
 
             <p class="small" style="margin: 2px 2px 0;">
-              Have feedback or found something odd? I’d genuinely like to hear it — send a note and include your iOS version.
+              For support, please include your iOS version and what you were doing right before the issue.
             </p>
           </div>
         </aside>
@@ -532,15 +559,15 @@
 
       <footer class="footer">
         <div>© <span id="y"></span> Muscle Clock</div>
-        <div>
-          <a href="mailto:muscleclockapp@gmail.com?subject=Muscle%20Clock%20Support">muscleclockapp@gmail.com</a>
+        <div style="display:flex; gap:14px; flex-wrap:wrap; align-items:center;">
+          <a href="privacy.html" aria-label="Privacy policy link">Privacy</a>
+          <a href="mailto:muscleclockapp@gmail.com?subject=Muscle%20Clock%20Support" aria-label="Support email link">muscleclockapp@gmail.com</a>
         </div>
       </footer>
     </section>
   </main>
 
   <script>
-    // tiny enhancement: keep copyright year current
     document.getElementById("y").textContent = new Date().getFullYear();
   </script>
 </body>
