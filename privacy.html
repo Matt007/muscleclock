@@ -1,0 +1,298 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Muscle Clock — Privacy Policy</title>
+  <meta name="description" content="Muscle Clock privacy policy. Muscle Clock does not collect personal data." />
+  <meta name="theme-color" content="#0b1020" />
+  <style>
+    :root{
+      --bg0:#070a14;
+      --bg1:#0b1020;
+      --ink:#eaf0ff;
+      --muted:rgba(234,240,255,.72);
+      --line:rgba(255,255,255,.14);
+      --shadow: 0 24px 80px rgba(0,0,0,.55);
+      --radius: 22px;
+      --radius2: 16px;
+      --a:#7c3aed;
+      --b:#4f46e5;
+      --c:#06b6d4;
+    }
+    *{ box-sizing:border-box; }
+    html,body{ height:100%; }
+    body{
+      margin:0;
+      color:var(--ink);
+      font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, "Apple Color Emoji","Segoe UI Emoji";
+      background:
+        radial-gradient(1200px 700px at 20% 15%, rgba(124,58,237,.22), transparent 60%),
+        radial-gradient(900px 600px at 78% 28%, rgba(79,70,229,.16), transparent 55%),
+        radial-gradient(800px 520px at 55% 80%, rgba(6,182,212,.12), transparent 58%),
+        linear-gradient(180deg, var(--bg0), var(--bg1));
+      overflow-x:hidden;
+    }
+    .wrap{
+      min-height:100%;
+      display:flex;
+      align-items:flex-start;
+      justify-content:center;
+      padding: 56px 20px;
+    }
+    .card{
+      width:min(980px, 100%);
+      border-radius: var(--radius);
+      background: linear-gradient(180deg, rgba(255,255,255,.10), rgba(255,255,255,.06));
+      border:1px solid var(--line);
+      box-shadow: var(--shadow);
+      backdrop-filter: blur(14px);
+      -webkit-backdrop-filter: blur(14px);
+      overflow:hidden;
+      position:relative;
+      padding: 40px 40px 28px;
+    }
+    @media (max-width: 720px){
+      .card{ padding: 30px 22px 22px; }
+    }
+    .top{
+      display:flex;
+      align-items:flex-start;
+      justify-content:space-between;
+      gap:16px;
+      flex-wrap:wrap;
+    }
+    h1{
+      margin:0;
+      font-size: clamp(28px, 4vw, 44px);
+      letter-spacing:-0.02em;
+      line-height:1.06;
+    }
+    .meta{
+      color: var(--muted);
+      font-size: 13px;
+      line-height: 1.5;
+      text-align:right;
+      max-width: 40ch;
+    }
+    @media (max-width: 720px){
+      .meta{ text-align:left; }
+    }
+    .badge{
+      display:inline-flex;
+      align-items:center;
+      gap:10px;
+      padding:10px 14px;
+      border-radius: 999px;
+      border:1px solid rgba(255,255,255,.18);
+      background: rgba(0,0,0,.18);
+      color: rgba(234,240,255,.86);
+      font-size: 13px;
+      letter-spacing: .02em;
+      margin: 14px 0 18px;
+    }
+    .dot{
+      width:10px; height:10px; border-radius:999px;
+      background: radial-gradient(circle at 35% 35%, #fff, rgba(255,255,255,.0) 55%),
+                  linear-gradient(135deg, rgba(34,197,94,.9), rgba(6,182,212,.85), rgba(124,58,237,.9));
+      box-shadow: 0 0 14px rgba(6,182,212,.18);
+    }
+    .lede{
+      margin: 0 0 18px;
+      color: rgba(234,240,255,.84);
+      font-size: 16px;
+      line-height: 1.65;
+      max-width: 78ch;
+    }
+    .grid{
+      display:grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 14px;
+      margin: 18px 0 8px;
+    }
+    @media (max-width: 860px){
+      .grid{ grid-template-columns: 1fr; }
+    }
+    .box{
+      border-radius: var(--radius2);
+      border:1px solid rgba(255,255,255,.14);
+      background: rgba(0,0,0,.16);
+      padding: 14px 14px;
+    }
+    .box h2{
+      margin: 0 0 6px;
+      font-size: 14px;
+      letter-spacing: .01em;
+    }
+    .box p, .box li{
+      margin: 0;
+      color: rgba(234,240,255,.74);
+      font-size: 13px;
+      line-height: 1.55;
+    }
+    .box ul{
+      margin: 8px 0 0;
+      padding-left: 18px;
+    }
+    h3{
+      margin: 18px 0 8px;
+      font-size: 14px;
+      letter-spacing: .01em;
+    }
+    p, li{
+      color: rgba(234,240,255,.74);
+      font-size: 13px;
+      line-height: 1.7;
+      max-width: 92ch;
+    }
+    a{
+      color: rgba(234,240,255,.90);
+      text-decoration:none;
+      border-bottom: 1px solid rgba(234,240,255,.22);
+    }
+    a:hover{ border-bottom-color: rgba(234,240,255,.46); }
+    .footer{
+      margin-top: 22px;
+      padding-top: 16px;
+      border-top: 1px solid rgba(255,255,255,.10);
+      display:flex;
+      justify-content:space-between;
+      gap: 12px;
+      flex-wrap:wrap;
+      color: rgba(234,240,255,.62);
+      font-size: 12px;
+      line-height: 1.5;
+    }
+    code{
+      font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+      font-size: 12px;
+      color: rgba(234,240,255,.86);
+    }
+  </style>
+</head>
+
+<body>
+  <main class="wrap">
+    <section class="card" aria-label="Privacy policy">
+      <div class="top">
+        <div>
+          <h1>Privacy Policy</h1>
+          <div class="badge" aria-label="Data collection badge">
+            <span class="dot" aria-hidden="true"></span>
+            <span><strong>Muscle Clock does not collect data.</strong></span>
+          </div>
+        </div>
+        <div class="meta">
+          <div><strong>App:</strong> Muscle Clock</div>
+          <div><strong>Effective date:</strong> <span id="effective"></span></div>
+          <div><strong>Contact:</strong> <a href="mailto:muscleclockapp@gmail.com">muscleclockapp@gmail.com</a></div>
+        </div>
+      </div>
+
+      <p class="lede">
+        Muscle Clock is designed to work entirely on your device. The app does not collect, transmit, sell, or share
+        your personal data. There are no analytics SDKs, ad networks, trackers, or third-party data collection services
+        built into the app.
+      </p>
+
+      <div class="grid" aria-label="Privacy summary">
+        <div class="box">
+          <h2>Data collection</h2>
+          <p><strong>None.</strong> We do not collect any information from you or your device.</p>
+          <ul>
+            <li>No account required</li>
+            <li>No analytics</li>
+            <li>No ads</li>
+            <li>No tracking</li>
+          </ul>
+        </div>
+
+        <div class="box">
+          <h2>Data sharing</h2>
+          <p><strong>None.</strong> Because we do not collect data, we do not share data with third parties.</p>
+          <ul>
+            <li>No data sold</li>
+            <li>No third-party processors</li>
+            <li>No marketing sharing</li>
+          </ul>
+        </div>
+
+        <div class="box">
+          <h2>Data stored on your device</h2>
+          <p>
+            Your workout and recovery logs are stored locally on your iPhone. You control your data.
+            The app includes optional import/export so you can move your data yourself.
+          </p>
+        </div>
+
+        <div class="box">
+          <h2>Internet access</h2>
+          <p>
+            Muscle Clock does not require internet access to function. If you choose to contact support by email,
+            your email provider will handle that message as usual.
+          </p>
+        </div>
+      </div>
+
+      <h3>What information Muscle Clock collects</h3>
+      <p>
+        Muscle Clock collects <strong>no personal information</strong> and <strong>no device information</strong>.
+        This includes (but is not limited to): names, email addresses, identifiers, precise location, contacts,
+        photos, health records, analytics events, advertising identifiers, diagnostics, or usage telemetry.
+      </p>
+
+      <h3>What information Muscle Clock stores</h3>
+      <p>
+        The app stores the information you enter (for example: muscle impact events, recovery settings, notes)
+        <strong>locally on your device</strong>. This information stays on your device unless you choose to export it.
+      </p>
+
+      <h3>Import / export</h3>
+      <p>
+        If you use import or export, the app produces or reads a file that you choose. Exported files are created on
+        your device and are only shared if <em>you</em> share them. Muscle Clock does not upload exported files anywhere.
+      </p>
+
+      <h3>Support email</h3>
+      <p>
+        If you email support, the content of your message and your email address will be handled by your email provider
+        and delivered to us so we can respond. We use email only to provide support. We do not use support emails for
+        marketing.
+      </p>
+
+      <h3>Children’s privacy</h3>
+      <p>
+        Muscle Clock does not collect personal data from anyone, including children. If you believe you contacted us and
+        shared personal information by email, you can ask us to delete that email by contacting
+        <a href="mailto:muscleclockapp@gmail.com?subject=Privacy%20Request%20—%20Delete%20Support%20Email">muscleclockapp@gmail.com</a>.
+      </p>
+
+      <h3>Changes to this policy</h3>
+      <p>
+        If the app’s privacy behavior changes in the future (for example, if analytics or cloud sync are added), this
+        privacy policy will be updated before those changes take effect. The “Effective date” above will also be updated.
+      </p>
+
+      <div class="footer" role="contentinfo">
+        <div>© <span id="y"></span> Muscle Clock</div>
+        <div>
+          <a href="index.html">Support</a>
+          &nbsp;·&nbsp;
+          <a href="mailto:muscleclockapp@gmail.com">muscleclockapp@gmail.com</a>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <script>
+    const now = new Date();
+    document.getElementById("y").textContent = now.getFullYear();
+
+    // You can hardcode this when you publish (e.g., "2026-02-20").
+    const yyyy = now.getFullYear();
+    const mm = String(now.getMonth() + 1).padStart(2, "0");
+    const dd = String(now.getDate()).padStart(2, "0");
+    document.getElementById("effective").textContent = `${yyyy}-${mm}-${dd}`;
+  </script>
+</body>
+</html>

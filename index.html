@@ -25,12 +25,11 @@
       --radius: 22px;
       --radius2: 16px;
 
-      /* App-store screenshot vibe: purple → indigo, with faint cyan */
-      --a:#7c3aed;   /* purple */
-      --b:#4f46e5;   /* indigo */
-      --c:#06b6d4;   /* cyan */
-      --d:#22c55e;   /* green */
-      --e:#f59e0b;   /* amber */
+      --a:#7c3aed;
+      --b:#4f46e5;
+      --c:#06b6d4;
+      --d:#22c55e;
+      --e:#f59e0b;
     }
 
     *{ box-sizing:border-box; }
@@ -148,6 +147,7 @@
       display:grid;
       grid-template-columns: 1.2fr .8fr;
       gap: 0;
+      align-items:stretch;
     }
     @media (max-width: 860px){
       .grid{ grid-template-columns: 1fr; }
@@ -302,104 +302,100 @@
     }
 
     .panel{
-      padding: 34px 28px 30px;
+      padding: 18px 18px 18px; /* tighter: right side is now image-only */
       width:100%;
       display:flex;
       flex-direction:column;
-      gap: 16px;
+      justify-content:center;
+      gap: 0;
       position:relative;
     }
 
-    .panelTitle{
-      display:flex;
-      align-items:flex-start;
-      justify-content:space-between;
-      gap: 12px;
-    }
-    .panelTitle h2{
-      margin:0;
-      font-size: 14px;
-      letter-spacing:.12em;
-      text-transform: uppercase;
-      color: rgba(234,240,255,.76);
-    }
-    .panelTitle .small{
-      margin:0;
-      text-align:right;
-      max-width: 26ch;
-    }
-
-    /*
-      ✅ Screenshot slot:
-      Replace the .preview block with <img> when ready.
-
-      Example:
-      <a class="preview" href="assets/screenshot-1.png" target="_blank" rel="noreferrer">
-        <img src="assets/screenshot-1.png" alt="Muscle Clock screenshot: dashboard readiness" />
-      </a>
-
-      For best results:
-      - Use a single portrait screenshot (iPhone 6.7" / Pro Max size)
-      - Prefer the Dashboard or Body Map shot
-    */
-    .preview{
-      display:block;
-      height: 420px;
+    /* Screenshot carousel */
+    .previewWrap{
+      position:relative;
       border-radius: 18px;
       border: 1px solid rgba(255,255,255,.14);
+      background: rgba(0,0,0,.18);
+      overflow:hidden;
+      box-shadow: var(--shadow2);
+
+      /* iPhone portrait-ish ratio */
+      aspect-ratio: 9 / 19.5;
+
+      width: 100%;
+      max-width: 360px;
+      margin: 0 auto;
+
+      /* ✅ prevent tall screenshots from forcing page scroll */
+      height: min(62vh, 520px);
+    }
+    @media (max-width: 860px){
+      .previewWrap{
+        height: min(58vh, 520px);
+      }
+    }
+
+    .previewImg{
+      width:100%;
+      height:100%;
+      object-fit: contain; /* no cropping */
+      display:block;
       background:
         radial-gradient(160px 160px at 22% 25%, rgba(124,58,237,.22), transparent 60%),
         radial-gradient(180px 180px at 68% 35%, rgba(79,70,229,.16), transparent 60%),
         radial-gradient(220px 220px at 55% 78%, rgba(6,182,212,.12), transparent 65%),
         rgba(0,0,0,.18);
-      overflow:hidden;
-      position:relative;
-      box-shadow: var(--shadow2);
-      text-decoration:none;
-    }
-    .preview img{
-      width:100%;
-      height:100%;
-      object-fit:cover;
-      display:block;
-    }
-    .preview::after{
-      content:"Drop a screenshot here";
-      position:absolute;
-      left: 14px;
-      bottom: 12px;
-      font-size: 12px;
-      color: rgba(234,240,255,.60);
-      border: 1px dashed rgba(255,255,255,.18);
-      background: rgba(0,0,0,.22);
-      padding: 8px 10px;
-      border-radius: 999px;
-      backdrop-filter: blur(10px);
-      -webkit-backdrop-filter: blur(10px);
     }
 
-    .statGrid{
-      display:grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 12px;
-    }
-    .stat{
-      border-radius: 18px;
-      border: 1px solid rgba(255,255,255,.14);
-      background: rgba(0,0,0,.16);
-      padding: 14px 14px;
+    /* Nav buttons: always visible now (you asked for obvious controls) */
+    .navBtn{
+      position:absolute;
+      top: 50%;
+      transform: translateY(-50%);
+      width: 40px;
+      height: 40px;
+      border-radius: 999px;
+      border: 1px solid rgba(255,255,255,.18);
+      background: rgba(0,0,0,.36);
+      color: rgba(234,240,255,.94);
+      display:flex;
+      align-items:center;
+      justify-content:center;
       box-shadow: var(--shadow2);
+      cursor:pointer;
+      user-select:none;
+      transition: transform .12s ease, background .12s ease, border-color .12s ease, opacity .12s ease;
+      opacity: 1;
     }
-    .stat .k{
+    .navBtn:hover{
+      transform: translateY(-50%) scale(1.03);
+      border-color: rgba(255,255,255,.26);
+      background: rgba(0,0,0,.48);
+    }
+    .navBtn:active{
+      transform: translateY(-50%) scale(0.98);
+    }
+    .navBtn[disabled]{
+      opacity: .35 !important;
+      cursor: not-allowed;
+      pointer-events: none !important;
+    }
+    .navPrev{ left: 10px; }
+    .navNext{ right: 10px; }
+
+    .pager{
+      position:absolute;
+      top: 10px;
+      right: 10px;
       font-size: 12px;
-      color: rgba(234,240,255,.62);
-      letter-spacing: .02em;
-    }
-    .stat .v{
-      margin-top: 6px;
-      font-size: 16px;
-      font-weight: 700;
-      letter-spacing: -0.01em;
+      color: rgba(234,240,255,.72);
+      background: rgba(0,0,0,.26);
+      border: 1px solid rgba(255,255,255,.14);
+      border-radius: 999px;
+      padding: 6px 10px;
+      backdrop-filter: blur(10px);
+      -webkit-backdrop-filter: blur(10px);
     }
 
     .footer{
@@ -422,10 +418,10 @@
       border-bottom-color: rgba(234,240,255,.42);
     }
 
-    /* Reduced motion */
     @media (prefers-reduced-motion: reduce){
       .stars, .stars::before, .stars::after, .aurora, .dot{ animation:none !important; }
       .btn{ transition:none !important; }
+      .navBtn{ transition:none !important; }
     }
   </style>
 </head>
@@ -450,7 +446,6 @@
           </p>
 
           <div class="ctaRow">
-            <!-- Replace # with your App Store link when you have it -->
             <a class="btn btnPrimary" href="#" aria-label="Open on the App Store">
               <span aria-hidden="true"></span>
               <span>View on the App Store</span>
@@ -461,7 +456,6 @@
               <span>Support Email</span>
             </a>
 
-            <!-- App Store requires a privacy policy URL for most apps; placeholder for now -->
             <a class="btn" href="privacy.html" aria-label="Open privacy policy">
               <span aria-hidden="true">⌁</span>
               <span>Privacy</span>
@@ -470,6 +464,7 @@
             <span class="small">Support: <strong>muscleclockapp@gmail.com</strong></span>
           </div>
 
+          <!-- ✅ merged: all bullets/pills live on the left now -->
           <div class="feature-row" aria-label="Highlights">
             <div class="pill">
               <div class="icon" aria-hidden="true"></div>
@@ -482,8 +477,24 @@
             <div class="pill">
               <div class="icon" aria-hidden="true"></div>
               <div>
-                <h3>Visual recovery view</h3>
+                <h3>Visualize recovery</h3>
                 <p>Front &amp; back views make it easy to understand recovery at a glance.</p>
+              </div>
+            </div>
+
+            <div class="pill">
+              <div class="icon" aria-hidden="true"></div>
+              <div>
+                <h3>Log your workout your way</h3>
+                <p>Track exercises, body parts, or individual muscle hits.</p>
+              </div>
+            </div>
+
+            <div class="pill">
+              <div class="icon" aria-hidden="true"></div>
+              <div>
+                <h3>Effort in, recovery out</h3>
+                <p>Quick effort levels produce clear recovery estimates.</p>
               </div>
             </div>
 
@@ -498,61 +509,24 @@
             <div class="pill">
               <div class="icon" aria-hidden="true"></div>
               <div>
-                <h3>No lock-in</h3>
-                <p>Import/export your data easily (JSON) — keep full ownership.</p>
-              </div>
-            </div>
-
-            <div class="pill">
-              <div class="icon" aria-hidden="true"></div>
-              <div>
-                <h3>Fast, no splash screen</h3>
-                <p>Opens quickly and stays focused — no clutter, no distractions.</p>
-              </div>
-            </div>
-
-            <div class="pill">
-              <div class="icon" aria-hidden="true"></div>
-              <div>
-                <h3>No subscriptions / no IAP</h3>
-                <p>One-time purchase — no recurring charges and no in-app purchases.</p>
+                <h3>No subscriptions. No lock-in.</h3>
+                <p>No in-app purchases. Easy JSON import/export. Fast, no splash screen.</p>
               </div>
             </div>
           </div>
         </div>
 
-        <aside class="right" aria-label="Preview panel">
+        <!-- ✅ right side is screenshots only -->
+        <aside class="right" aria-label="Screenshots">
           <div class="panel">
-            <div class="panelTitle">
-              <h2>Preview</h2>
-              <p class="small">Best spot for a single App Store screenshot (Dashboard or Body view).</p>
+            <div class="previewWrap" aria-label="Screenshot carousel" tabindex="0">
+              <img id="shot" class="previewImg" src="" alt="Muscle Clock screenshot" />
+
+              <button id="prevBtn" class="navBtn navPrev" type="button" aria-label="Previous screenshot">‹</button>
+              <button id="nextBtn" class="navBtn navNext" type="button" aria-label="Next screenshot">›</button>
+
+              <div id="pager" class="pager" aria-label="Screenshot position">—</div>
             </div>
-
-            <!-- Screenshot slot (see CSS comment above for how to replace) -->
-            <a class="preview" href="#" aria-label="Screenshot placeholder"></a>
-
-            <div class="statGrid" aria-label="Key points">
-              <div class="stat">
-                <div class="k">Companion</div>
-                <div class="v">Not a gym app</div>
-              </div>
-              <div class="stat">
-                <div class="k">Fast</div>
-                <div class="v">No splash screen</div>
-              </div>
-              <div class="stat">
-                <div class="k">Pricing</div>
-                <div class="v">No subscriptions</div>
-              </div>
-              <div class="stat">
-                <div class="k">Data</div>
-                <div class="v">Easy import/export</div>
-              </div>
-            </div>
-
-            <p class="small" style="margin: 2px 2px 0;">
-              For support, please include your iOS version and what you were doing right before the issue.
-            </p>
           </div>
         </aside>
       </div>
@@ -569,6 +543,67 @@
 
   <script>
     document.getElementById("y").textContent = new Date().getFullYear();
+
+    // ---- Screenshot carousel config ----
+    const BASE = "screenshots/";
+    const MAX_SCREENSHOTS = 8;
+
+    let idx = 1;
+    let lastKnownGood = 0;
+
+    const img = document.getElementById("shot");
+    const prevBtn = document.getElementById("prevBtn");
+    const nextBtn = document.getElementById("nextBtn");
+    const pager = document.getElementById("pager");
+
+    // keep your naming convention ✅
+    function srcFor(i){ return `${BASE}w${i}.webp`; }
+
+    function updateUI(){
+      prevBtn.disabled = (idx <= 1);
+      nextBtn.disabled = (idx >= MAX_SCREENSHOTS);
+      pager.textContent = `${idx} / ${MAX_SCREENSHOTS}`;
+    }
+
+    function load(i){
+      idx = Math.max(1, Math.min(MAX_SCREENSHOTS, i));
+      updateUI();
+
+      const probe = new Image();
+      probe.onload = () => {
+        img.src = srcFor(idx);
+        lastKnownGood = Math.max(lastKnownGood, idx);
+        updateUI();
+      };
+      probe.onerror = () => {
+        // If w1.webp is missing, just stop trying to be clever
+        if (idx === 1 && lastKnownGood === 0){
+          img.removeAttribute("src");
+          pager.textContent = "—";
+          prevBtn.disabled = true;
+          nextBtn.disabled = true;
+          return;
+        }
+        if (lastKnownGood > 0){
+          idx = lastKnownGood;
+          img.src = srcFor(idx);
+        } else {
+          idx = 1;
+        }
+        updateUI();
+      };
+      probe.src = srcFor(idx);
+    }
+
+    prevBtn.addEventListener("click", () => load(idx - 1));
+    nextBtn.addEventListener("click", () => load(idx + 1));
+
+    window.addEventListener("keydown", (e) => {
+      if (e.key === "ArrowLeft") load(idx - 1);
+      if (e.key === "ArrowRight") load(idx + 1);
+    });
+
+    load(1);
   </script>
 </body>
 </html>
